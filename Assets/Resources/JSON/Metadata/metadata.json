@@ -1,0 +1,33 @@
+{
+    "Units": [
+        {
+            "uid": "antellope",
+            "type": "Flagship",
+            "hp": 2500,
+            "basedamage": 100,
+            "ammo": 50,
+            "speed": 10,
+            "fuel": 10000
+        },
+        {
+            "uid": "scout",
+            "type": "Scout",
+            "hp": 100,
+            "basedamage": 75,
+            "ammo": 10,
+            "speed": 50,
+            "fuel": 100
+        },
+        {
+            "uid": "deimos_scout",
+            "type": "Scout",
+            "hp": 50,
+            "basedamage": 25,
+            "ammo": 10,
+            "speed": 60,
+            "fuel": 150
+        }
+    ],
+    "Equipment": [],
+    "ScreenInfo": []
+}
