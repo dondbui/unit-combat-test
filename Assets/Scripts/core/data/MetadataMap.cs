@@ -23,6 +23,11 @@ namespace core.data
         /// </summary>
         public List<UnitVO> Units;
 
+        /// <summary>
+        /// A list of VOs for equipment data
+        /// </summary>
+        public List<EquipmentVO> Equipment;
+
         public Dictionary<object, Dictionary<string, object>> metadata;
 
         public MetadataMap()
@@ -37,9 +42,9 @@ namespace core.data
         public void Process()
         {
             SaveListToMetadataMap<UnitVO>(Units);
+            SaveListToMetadataMap<EquipmentVO>(Equipment);
 
             Debug.Log("Done Processing");
-
         }
 
         /// <summary>

@@ -7,6 +7,7 @@
 
 using core.data;
 using core.data.vo;
+using System.Collections.Generic;
 
 namespace core.units
 {
@@ -43,7 +44,24 @@ namespace core.units
         {
             UnitVO vo = metadataMap.GetVO<UnitVO>(uid);
 
-            Unit unit = new Unit(vo);
+            List<Equipment> defaultEquipment = new List<Equipment>();
+
+            if (!string.IsNullOrEmpty(vo.equipment1))
+            {
+                EquipmentVO eq1VO = metadataMap.GetVO<EquipmentVO>(vo.equipment1);
+
+
+
+                defaultEquipment.Add(new Equipment(eq1VO));
+            }
+
+            if (!string.IsNullOrEmpty(vo.equipment2))
+            {
+                EquipmentVO eq2VO = metadataMap.GetVO<EquipmentVO>(vo.equipment2);
+                defaultEquipment.Add(new Equipment(eq2VO));
+            }
+
+            Unit unit = new Unit(vo, defaultEquipment);
             return unit;
         }
     }

@@ -44,5 +44,9 @@ namespace core.data.vo
         /// How many tiles a unit can move before running out of fuel
         /// </summary>
         public int fuel;
+
+        public string equipment1;
+
+        public string equipment2;
     }
 }

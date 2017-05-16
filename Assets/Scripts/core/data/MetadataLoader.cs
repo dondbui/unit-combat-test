@@ -24,11 +24,11 @@ namespace core.data
             MetadataMap dataMap = JsonUtility.FromJson<MetadataMap>(textAsset.text);
 
             // Debug out all the units parsed in.
-            for (int i = 0, count = dataMap.Units.Count; i < count; i++)
+            for (int i = 0, count = dataMap.Equipment.Count; i < count; i++)
             {
-                UnitVO unitVO = dataMap.Units[i];
+                EquipmentVO vo = dataMap.Equipment[i];
 
-                //Debug.Log("Unit: " + unitVO.uid);
+                //Debug.Log("EQ: " + vo.uid);
             }
 
             dataMap.Process();

@@ -15,18 +15,20 @@ namespace core.combat
     /// </summary>
     public class CombatUtils
     {
-        public static void HandleAttack(ref Unit attacker, ref Unit defender)
+        public static void HandleAttack(ref Unit attacker, int equipmentSlot, ref Unit defender)
         {
-            Debug.Log("Start attack : " + attacker.vo.uid + " vs " + defender.vo.uid);
+            Equipment equipment = attacker.equipment[equipmentSlot];
 
-            if (attacker.ammo == 0)
+            Debug.Log("Start attack : " + attacker.vo.uid + " uses " + equipment.vo.uid +" on " + defender.vo.uid);
+
+            if (equipment.remainingAmmo == 0)
             {
                 Debug.Log(attacker.vo.uid + " NO AMMO!!");
                 return;
             }
 
             // calculate the damage
-            int damage = attacker.vo.basedamage;
+            int damage = equipment.vo.basedamage;
 
             // apply the damage
             defender.hp -= damage;
@@ -41,7 +43,7 @@ namespace core.combat
 
             // expend some ammo
             int ammoUsed = 1;
-            attacker.ammo -= ammoUsed;
+            equipment.remainingAmmo -= ammoUsed;
         }
 
 

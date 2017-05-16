@@ -6,6 +6,7 @@
 /// ------------------------------------------------------------------------***/
 
 using core.data.vo;
+using System.Collections.Generic;
 
 namespace core.units
 {
@@ -31,7 +32,9 @@ namespace core.units
         /// </summary>
         public int fuel;
 
-        public Unit (UnitVO vo)
+        public List<Equipment> equipment;
+
+        public Unit (UnitVO vo, List<Equipment> equipment)
         {
             this.vo = vo;
 
@@ -39,6 +42,8 @@ namespace core.units
             hp = vo.hp;
             ammo = vo.ammo;
             fuel = vo.fuel;
+
+            this.equipment = equipment;
         }
     }
 }

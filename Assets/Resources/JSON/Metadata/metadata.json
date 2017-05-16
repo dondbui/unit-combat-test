@@ -4,8 +4,6 @@
             "uid": "antellope",
             "type": "Flagship",
             "hp": 2500,
-            "basedamage": 100,
-            "ammo": 50,
             "speed": 10,
             "fuel": 10000
         },
@@ -13,21 +11,51 @@
             "uid": "scout",
             "type": "Scout",
             "hp": 100,
-            "basedamage": 75,
-            "ammo": 10,
             "speed": 50,
-            "fuel": 100
+            "fuel": 100,
+            "equipment1": "vulcan",
+            "equipment2": "javelin"
         },
         {
             "uid": "deimos_scout",
             "type": "Scout",
             "hp": 50,
-            "basedamage": 25,
-            "ammo": 10,
             "speed": 60,
-            "fuel": 150
+            "fuel": 150,
+            "equipment1": "pulse"
         }
     ],
-    "Equipment": [],
+    "Equipment": [
+        {
+            "uid": "vulcan",
+            "type": "cannon",
+            "basedamage": 25,
+            "damagebonus": 0,
+            "healthbonus": 0,
+            "damagereduction": 0,
+            "range": 1,
+            "ammocapacity": 10
+        },
+        {
+            "uid": "javelin",
+            "type": "missle",
+            "basedamage": 100,
+            "damagebonus": 0,
+            "healthbonus": 0,
+            "damagereduction": 0,
+            "range": 0,
+            "ammocapacity": 4
+        },
+        {
+            "uid": "pulse",
+            "type": "cannon",
+            "basedamage": 35,
+            "damagebonus": 0,
+            "healthbonus": 0,
+            "damagereduction": 0,
+            "range": 1,
+            "ammocapacity": 10
+        }
+    ],
     "ScreenInfo": []
 }
