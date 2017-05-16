@@ -64,5 +64,23 @@ namespace core.data
                 voMap[vo.uid] = vo;
             }
         }
+
+        public T GetVO<T>(string uid) where T:BaseVO
+        {
+            Type type = typeof(T);
+
+            if (!metadata.ContainsKey(type))
+            {
+                return null;
+            }
+
+            Dictionary<string, object> voMap = metadata[type];
+            if (!voMap.ContainsKey(uid))
+            {
+                return null;
+            }
+
+            return (T)voMap[uid];
+        }
     }
 }
