@@ -28,7 +28,7 @@ namespace core.data
             {
                 UnitVO unitVO = dataMap.Units[i];
 
-                Debug.Log("Unit: " + unitVO.uid);
+                //Debug.Log("Unit: " + unitVO.uid);
             }
 
             dataMap.Process();

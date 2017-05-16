@@ -5,6 +5,7 @@
 /// <date>May 14th, 2017</date>
 /// ------------------------------------------------------------------------***/
 
+using core.combat;
 using core.data;
 using core.units;
 using UnityEngine;
@@ -34,6 +35,14 @@ public class CombatTest : MonoBehaviour
 
         Unit scout = uf.CreateNewUnit(SCOUT);
         Unit deimosScout = uf.CreateNewUnit(D_SCOUT);
+
+        Debug.Log(scout.vo.uid + " HP: " + scout.hp);
+        Debug.Log(deimosScout.vo.uid + " HP: " + deimosScout.hp);
+
+        CombatUtils.HandleAttack(ref scout, ref deimosScout);
+
+        Debug.Log(scout.vo.uid + " HP: " + scout.hp);
+        Debug.Log(deimosScout.vo.uid + " HP: " + deimosScout.hp);
 
         Debug.Log("End");
     }
