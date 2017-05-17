@@ -48,6 +48,12 @@ namespace core.combat
 
             Equipment defenderEquipment = defender.equipment[defEqpSlot];
 
+            if (defenderEquipment.remainingAmmo == 0)
+            {
+                Debug.Log(defender.vo.uid + " NO AMMO!!");
+                return;
+            }
+
             // now it's the defender's turn to fire back
             Debug.Log("Counter-Attack : " + defender.vo.uid + " uses " +
                 defenderEquipment.vo.uid + " on " + attacker.vo.uid);
@@ -64,7 +70,5 @@ namespace core.combat
             }
             defenderEquipment.remainingAmmo -= ammoUsed;
         }
-
-
     }
 }
