@@ -39,7 +39,7 @@ public class CombatTest : MonoBehaviour
         Debug.Log(scout.vo.uid + " HP: " + scout.hp);
         Debug.Log(deimosScout.vo.uid + " HP: " + deimosScout.hp);
 
-        CombatUtils.HandleAttack(ref scout, 0, ref deimosScout);
+        CombatUtils.HandleAttack(ref scout, 0, ref deimosScout, 0);
 
         Debug.Log(scout.vo.uid + " HP: " + scout.hp);
         Debug.Log(deimosScout.vo.uid + " HP: " + deimosScout.hp);

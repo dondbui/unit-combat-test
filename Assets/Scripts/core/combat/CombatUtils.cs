@@ -15,20 +15,21 @@ namespace core.combat
     /// </summary>
     public class CombatUtils
     {
-        public static void HandleAttack(ref Unit attacker, int equipmentSlot, ref Unit defender)
+        public static void HandleAttack(ref Unit attacker, int atkEqpSlot, ref Unit defender, int defEqpSlot)
         {
-            Equipment equipment = attacker.equipment[equipmentSlot];
+            Equipment attackerEquipment = attacker.equipment[atkEqpSlot];
 
-            Debug.Log("Start attack : " + attacker.vo.uid + " uses " + equipment.vo.uid +" on " + defender.vo.uid);
+            Debug.Log("Start attack : " + attacker.vo.uid + " uses " + 
+                attackerEquipment.vo.uid +" on " + defender.vo.uid);
 
-            if (equipment.remainingAmmo == 0)
+            if (attackerEquipment.remainingAmmo == 0)
             {
                 Debug.Log(attacker.vo.uid + " NO AMMO!!");
                 return;
             }
 
             // calculate the damage
-            int damage = equipment.vo.basedamage;
+            int damage = attackerEquipment.vo.basedamage;
 
             // apply the damage
             defender.hp -= damage;
@@ -43,7 +44,25 @@ namespace core.combat
 
             // expend some ammo
             int ammoUsed = 1;
-            equipment.remainingAmmo -= ammoUsed;
+            attackerEquipment.remainingAmmo -= ammoUsed;
+
+            Equipment defenderEquipment = defender.equipment[defEqpSlot];
+
+            // now it's the defender's turn to fire back
+            Debug.Log("Counter-Attack : " + defender.vo.uid + " uses " +
+                defenderEquipment.vo.uid + " on " + attacker.vo.uid);
+
+            int counterDamage = defenderEquipment.vo.basedamage;
+
+            attacker.hp -= counterDamage;
+            // prevent it from going negative.
+            if (attacker.hp <= 0)
+            {
+                attacker.hp = 0;
+
+                Debug.Log(attacker.vo.uid + " DESTROYED!!");
+            }
+            defenderEquipment.remainingAmmo -= ammoUsed;
         }
 
 
