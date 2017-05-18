@@ -56,6 +56,8 @@ namespace core.data
             {
                 BaseVO vo = voList[i];
 
+                vo.Process();
+
                 Type type = typeof(T);
 
                 // See if we have the mapping yet.

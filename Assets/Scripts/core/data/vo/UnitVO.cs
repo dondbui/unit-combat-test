@@ -6,6 +6,7 @@
 /// ------------------------------------------------------------------------***/
 
 using System;
+using System.Collections.Generic;
 
 namespace core.data.vo
 {
@@ -45,8 +46,23 @@ namespace core.data.vo
         /// </summary>
         public int fuel;
 
-        public string equipment1;
+        /// <summary>
+        /// Space deliminated list of default equipment for this unit
+        /// </summary>
+        public string equipmentlist;
 
-        public string equipment2;
+        public string[] equipmentUIDs;
+
+        public override void Process()
+        {
+            // Only if we have something for the equipmentList do we need to add anything;
+            if (!string.IsNullOrEmpty(equipmentlist))
+            {
+                // Split it on the space
+                equipmentUIDs = equipmentlist.Split(' ');
+            }
+
+            base.Process();
+        }
     }
 }

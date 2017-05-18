@@ -13,8 +13,7 @@
             "hp": 100,
             "speed": 50,
             "fuel": 100,
-            "equipment1": "vulcan",
-            "equipment2": "javelin"
+            "equipmentlist": "vulcan javelin"
         },
         {
             "uid": "deimos_scout",
@@ -22,40 +21,70 @@
             "hp": 50,
             "speed": 60,
             "fuel": 150,
-            "equipment1": "pulse"
+            "equipmentlist": "pulse"
         }
     ],
     "Equipment": [
         {
-            "uid": "vulcan",
-            "type": "cannon",
-            "basedamage": 25,
-            "damagebonus": 0,
-            "healthbonus": 0,
-            "damagereduction": 0,
-            "range": 1,
-            "ammocapacity": 10
-        },
-        {
             "uid": "javelin",
-            "type": "missle",
+            "type": "weapon",
+            "subtype": "missle",
             "basedamage": 100,
+            "hitchance": 0.8,
+            "numshotsperattack": 1,
             "damagebonus": 0,
             "healthbonus": 0,
             "damagereduction": 0,
-            "range": 0,
+            "range": 3,
             "ammocapacity": 4
         },
         {
-            "uid": "pulse",
-            "type": "cannon",
-            "basedamage": 35,
+            "uid": "vulcan",
+            "type": "weapon",
+            "subtype": "cannon",
+            "basedamage": 25,
+            "hitchance": 0.5,
+            "numshotsperattack": 3,
             "damagebonus": 0,
             "healthbonus": 0,
             "damagereduction": 0,
             "range": 1,
             "ammocapacity": 10
+        },
+        {
+            "uid": "pulse",
+            "type": "weapon",
+            "subtype": "cannon",
+            "basedamage": 5,
+            "hitchance": 0.4,
+            "numshotsperattack": 10,
+            "damagebonus": 0,
+            "healthbonus": 0,
+            "damagereduction": 0,
+            "range": 1,
+            "ammocapacity": 10
+        },
+        {
+            "uid": "plating",
+            "type": "armor",
+            "subtype": "plating",
+            "basedamage": 0,
+            "hitchance": 0,
+            "numshotsperattack": 0,
+            "damagebonus": 0,
+            "healthbonus": 50,
+            "damagereduction": 2,
+            "range": 0,
+            "ammocapacity": 0
         }
     ],
+    "Characters": [
+        {
+            "uid": "sherman",
+            "damagereduction": 1,
+            "dodgebonus": 0.1
+        }
+    ],
+    "Skills": [],
     "ScreenInfo": []
 }

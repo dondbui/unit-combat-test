@@ -46,21 +46,17 @@ namespace core.units
 
             List<Equipment> defaultEquipment = new List<Equipment>();
 
-            if (!string.IsNullOrEmpty(vo.equipment1))
+            string[] equipmentUIDs = vo.equipmentUIDs;
+
+            if (equipmentUIDs != null && equipmentUIDs.Length > 0)
             {
-                EquipmentVO eq1VO = metadataMap.GetVO<EquipmentVO>(vo.equipment1);
-
-
-
-                defaultEquipment.Add(new Equipment(eq1VO));
+                for (int i = 0, count = equipmentUIDs.Length; i < count; i++)
+                {
+                    EquipmentVO eqp = metadataMap.GetVO<EquipmentVO>(equipmentUIDs[i]);
+                    defaultEquipment.Add(new Equipment(eqp));
+                }
             }
-
-            if (!string.IsNullOrEmpty(vo.equipment2))
-            {
-                EquipmentVO eq2VO = metadataMap.GetVO<EquipmentVO>(vo.equipment2);
-                defaultEquipment.Add(new Equipment(eq2VO));
-            }
-
+            
             Unit unit = new Unit(vo, defaultEquipment);
             return unit;
         }

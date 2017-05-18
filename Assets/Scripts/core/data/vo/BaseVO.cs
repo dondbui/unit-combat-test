@@ -20,5 +20,9 @@ namespace core.data.vo
         /// </summary>
         public string uid;
 
+        public virtual void Process()
+        {
+
+        }
     }
 }

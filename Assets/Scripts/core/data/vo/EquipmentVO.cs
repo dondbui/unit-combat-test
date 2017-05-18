@@ -14,9 +14,24 @@ namespace core.data.vo
         public int basedamage;
 
         /// <summary>
-        /// The type of equipment this is
+        /// The type of equipment this is for example, weapon, armor, etc
         /// </summary>
         public string type;
+
+        /// <summary>
+        /// The subtype of this equipment such as cannon, missle, armor
+        /// </summary>
+        public string subtype;
+
+        /// <summary>
+        /// The probability of each shot to hit
+        /// </summary>
+        public double hitchance;
+
+        /// <summary>
+        /// The number of shots per attack for this weapon
+        /// </summary>
+        public int numshotsperattack;
 
         /// <summary>
         /// The amount of ammo capacity for this type of equipment.
