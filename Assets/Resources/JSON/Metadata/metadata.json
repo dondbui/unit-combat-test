@@ -49,7 +49,7 @@
             "healthbonus": 0,
             "damagereduction": 0,
             "range": 1,
-            "ammocapacity": 10
+            "ammocapacity": 30
         },
         {
             "uid": "pulse",
@@ -62,7 +62,7 @@
             "healthbonus": 0,
             "damagereduction": 0,
             "range": 1,
-            "ammocapacity": 10
+            "ammocapacity": 50
         },
         {
             "uid": "plating",
