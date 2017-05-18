@@ -36,13 +36,13 @@ public class CombatTest : MonoBehaviour
         Unit scout = uf.CreateNewUnit(SCOUT);
         Unit deimosScout = uf.CreateNewUnit(D_SCOUT);
 
-        Debug.Log(scout.vo.uid + " HP: " + scout.hp);
-        Debug.Log(deimosScout.vo.uid + " HP: " + deimosScout.hp);
+        Debug.Log(scout.ToString());
+        Debug.Log(deimosScout.ToString());
 
         CombatUtils.HandleAttack(ref scout, 0, ref deimosScout, 0);
 
-        Debug.Log(scout.vo.uid + " HP: " + scout.hp);
-        Debug.Log(deimosScout.vo.uid + " HP: " + deimosScout.hp);
+        Debug.Log(scout.ToString());
+        Debug.Log(deimosScout.ToString());
 
         Debug.Log("End");
     }

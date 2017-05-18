@@ -7,6 +7,7 @@
 
 using core.data.vo;
 using System.Collections.Generic;
+using System.Text;
 
 namespace core.units
 {
@@ -44,6 +45,29 @@ namespace core.units
             fuel = vo.fuel;
 
             this.equipment = equipment;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(vo.uid);
+            sb.Append(": \n");
+            sb.Append("HP: " + hp + "\n");
+            sb.Append("Fuel: " + fuel + "\n");
+
+            if (equipment != null)
+            {
+                for (int i = 0, count = equipment.Count; i < count; i++)
+                {
+                    Equipment eqp = equipment[i];
+
+                    sb.Append(eqp.vo.uid + ":" + eqp.remainingAmmo + " \n");
+                }
+            }
+
+
+            return sb.ToString();
         }
     }
 }

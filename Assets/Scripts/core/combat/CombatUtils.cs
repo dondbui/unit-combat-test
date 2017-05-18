@@ -59,6 +59,15 @@ namespace core.combat
             // do the num shots
             for (int i = 0; i < numShots; i++)
             {
+                // expend some ammo
+                int ammoUsed = 1;
+                equipment.remainingAmmo -= ammoUsed;
+                if (equipment.remainingAmmo <= 0)
+                {
+                    Debug.Log(equipmentVO.uid + " Out of AMMO!!");
+                    break;
+                }
+
                 // TODO: apply dodge reduction
                 if (!DoesShotHit(hitChance, 0))
                 {
@@ -77,15 +86,6 @@ namespace core.combat
                     defender.hp = 0;
 
                     Debug.Log(defender.vo.uid + " DESTROYED!!");
-                    break;
-                }
-
-                // expend some ammo
-                int ammoUsed = 1;
-                equipment.remainingAmmo -= ammoUsed;
-                if (equipment.remainingAmmo <= 0)
-                {
-                    Debug.Log(equipmentVO.uid + " Out of AMMO!!");
                     break;
                 }
             }
