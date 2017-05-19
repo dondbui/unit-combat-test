@@ -47,11 +47,35 @@ namespace core.data.vo
         public int fuel;
 
         /// <summary>
+        /// The number of equipment pieces that the unit can equip
+        /// </summary>
+        public int equipmentSlots;
+
+        /// <summary>
         /// Space deliminated list of default equipment for this unit
         /// </summary>
         public string equipmentList;
 
+        /// <summary>
+        /// Post process set of equipmentUIDs in convenient array form
+        /// </summary>
         public string[] equipmentUIDs;
+
+        /// <summary>
+        /// The number of weapon pieces this unit is able to carry
+        /// </summary>
+        public int weaponSlots;
+
+        /// <summary>
+        /// Splace deliminated list of default weapons for this unit
+        /// </summary>
+        public string weaponsList;
+
+        /// <summary>
+        /// Post process set of EquipmentVO uids in convenient array form
+        /// </summary>
+        public string[] weaponsUIDs;
+
 
         public override void Process()
         {
@@ -60,6 +84,11 @@ namespace core.data.vo
             {
                 // Split it on the space
                 equipmentUIDs = equipmentList.Split(' ');
+            }
+
+            if (!string.IsNullOrEmpty(weaponsList))
+            {
+                weaponsUIDs = weaponsList.Split(' ');
             }
 
             base.Process();

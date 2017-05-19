@@ -40,25 +40,38 @@ namespace core.units
             this.metadataMap = metadataMap;
         }
 
+        /// <summary>
+        /// Create a new Unit and initialize default equipment and weapons
+        /// </summary>
         public Unit CreateNewUnit(string uid)
         {
             UnitVO vo = metadataMap.GetVO<UnitVO>(uid);
 
-            List<Equipment> defaultEquipment = new List<Equipment>();
+            List<Equipment> defaultEquipment = GetEquipmentListFromUIDs(vo.equipmentUIDs);
 
-            string[] equipmentUIDs = vo.equipmentUIDs;
+            List<Equipment> defaultWeapons = GetEquipmentListFromUIDs(vo.weaponsUIDs);
+
+            Unit unit = new Unit(vo, defaultEquipment, defaultWeapons);
+            return unit;
+        }
+
+        /// <summary>
+        /// Given a string array of EquipmentVO UIDs return a list of Equipment
+        /// </summary>
+        private List<Equipment> GetEquipmentListFromUIDs(string[] equipmentUIDs)
+        {
+            List<Equipment> list = new List<Equipment>();
 
             if (equipmentUIDs != null && equipmentUIDs.Length > 0)
             {
                 for (int i = 0, count = equipmentUIDs.Length; i < count; i++)
                 {
                     EquipmentVO eqp = metadataMap.GetVO<EquipmentVO>(equipmentUIDs[i]);
-                    defaultEquipment.Add(new Equipment(eqp));
+                    list.Add(new Equipment(eqp));
                 }
             }
-            
-            Unit unit = new Unit(vo, defaultEquipment);
-            return unit;
+
+            return list;
         }
     }
 }

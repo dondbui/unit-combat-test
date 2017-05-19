@@ -29,6 +29,11 @@ namespace core.data.vo
         public double hitChance;
 
         /// <summary>
+        /// The probability of dodging a shot
+        /// </summary>
+        public double dodgeChance;
+
+        /// <summary>
         /// The number of shots per attack for this weapon
         /// </summary>
         public int numShotsPerAttack;

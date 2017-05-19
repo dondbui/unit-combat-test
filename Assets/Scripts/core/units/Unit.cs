@@ -33,9 +33,10 @@ namespace core.units
         /// </summary>
         public int fuel;
 
+        public List<Equipment> weapons;
         public List<Equipment> equipment;
 
-        public Unit (UnitVO vo, List<Equipment> equipment)
+        public Unit (UnitVO vo, List<Equipment> equipment, List<Equipment> weapons)
         {
             this.vo = vo;
 
@@ -45,6 +46,69 @@ namespace core.units
             fuel = vo.fuel;
 
             this.equipment = equipment;
+            this.weapons = weapons;
+        }
+
+        public int GetDamage(int weaponSlot)
+        {
+            int damage = weapons[weaponSlot].vo.baseDamage;
+
+            // Add up all the equipment damage bonuses
+            for (int i = 0, count = equipment.Count; i < count; i++)
+            {
+                EquipmentVO eqpVO = equipment[i].vo;
+                damage += eqpVO.damageBonus;
+            }
+
+            return damage;
+        }
+
+        public double GetHitChance(int weaponSlot)
+        {
+            double chanceToHit = weapons[weaponSlot].vo.hitChance;
+
+            // Add up all the equipment hit chance bonuses
+            for (int i = 0, count = equipment.Count; i < count; i++)
+            {
+                EquipmentVO eqpVO = equipment[i].vo;
+                chanceToHit += eqpVO.hitChance;
+            }
+
+            // TODO: also apply character bonuses
+
+            return chanceToHit;
+        }
+
+        public double GetDodgeChance()
+        {
+            double chanceToDodge = 0;
+
+            // Add up all the dodge bonuses for all the pieces of equipment
+            for (int i = 0, count = equipment.Count; i < count; i++)
+            {
+                EquipmentVO eqpVO = equipment[i].vo;
+                chanceToDodge += eqpVO.dodgeChance;
+            }
+
+            // TODO: also apply character bonuses
+
+            return chanceToDodge;
+        }
+
+        public int GetDamageReduction()
+        {
+            int reduction = 0;
+
+            // Add up all the dodge bonuses for all the pieces of equipment
+            for (int i = 0, count = equipment.Count; i < count; i++)
+            {
+                EquipmentVO eqpVO = equipment[i].vo;
+                reduction += eqpVO.damageReduction;
+            }
+
+            // TODO: also apply character bonuses
+
+            return reduction;
         }
 
         public override string ToString()
@@ -56,16 +120,15 @@ namespace core.units
             sb.Append("HP: " + hp + "\n");
             sb.Append("Fuel: " + fuel + "\n");
 
-            if (equipment != null)
+            if (weapons != null)
             {
-                for (int i = 0, count = equipment.Count; i < count; i++)
+                for (int i = 0, count = weapons.Count; i < count; i++)
                 {
-                    Equipment eqp = equipment[i];
+                    Equipment eqp = weapons[i];
 
                     sb.Append(eqp.vo.uid + ":" + eqp.remainingAmmo + " \n");
                 }
             }
-
 
             return sb.ToString();
         }

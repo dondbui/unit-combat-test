@@ -21,8 +21,7 @@ namespace core.combat
         /// </summary>
         public static void HandleAttack(ref Unit attacker, int atkEqpSlot, ref Unit defender, int defEqpSlot)
         {
-            Equipment attackerEquipment = attacker.equipment[atkEqpSlot];
-            ApplyDamage(ref attacker, ref attackerEquipment, ref defender);
+            ApplyDamage(ref attacker, atkEqpSlot, ref defender);
 
 
             // Unit is dead so no counter attack.
@@ -31,44 +30,50 @@ namespace core.combat
                 return;
             }
 
-            Equipment defenderEquipment = defender.equipment[atkEqpSlot];
-            ApplyDamage(ref defender, ref defenderEquipment, ref attacker);
+            ApplyDamage(ref defender, defEqpSlot, ref attacker);
         }
 
         /// <summary>
         /// Applies damage to the defender
         /// </summary>
-        private static void ApplyDamage(ref Unit attacker, ref Equipment equipment, ref Unit defender)
+        private static void ApplyDamage(ref Unit attacker, int atkEqpSlot, ref Unit defender)
         {
-            EquipmentVO equipmentVO = equipment.vo;
+            Equipment attackerEquipment = attacker.weapons[atkEqpSlot];
+            EquipmentVO equipmentVO = attackerEquipment.vo;
 
             Debug.Log(attacker.vo.uid + " uses " +
                 equipmentVO.uid + " on " + defender.vo.uid);
 
-            if (equipment.remainingAmmo == 0)
+            if (attackerEquipment.remainingAmmo == 0)
             {
                 Debug.Log(attacker.vo.uid + " NO AMMO!!");
                 return;
             }
 
             // calculate the damage
-            int baseShotDamage = equipmentVO.baseDamage;
+            int damage = attacker.GetDamage(atkEqpSlot) - defender.GetDamageReduction();
+
+            // Prevent damage from rolling negative and healing the enemy
+            if (damage < 0)
+            {
+                damage = 0;
+            }
+
             int numShots = equipmentVO.numShotsPerAttack;
-            double hitChance = equipmentVO.hitChance;
+            double hitChance = attacker.GetHitChance(atkEqpSlot);
 
             // do the num shots
             for (int i = 0; i < numShots; i++)
             {
                 // expend some ammo
                 int ammoUsed = 1;
-                equipment.remainingAmmo -= ammoUsed;
-                if (equipment.remainingAmmo <= 0)
+                attackerEquipment.remainingAmmo -= ammoUsed;
+                if (attackerEquipment.remainingAmmo <= 0)
                 {
                     Debug.Log(equipmentVO.uid + " Out of AMMO!!");
                     break;
                 }
 
-                // TODO: apply dodge reduction
                 if (!DoesShotHit(hitChance, 0))
                 {
                     Debug.Log("MISS!!!");
@@ -76,9 +81,9 @@ namespace core.combat
                 }
 
                 // apply the damage
-                defender.hp -= baseShotDamage;
+                defender.hp -= damage;
 
-                Debug.Log("DAMAGE: " + baseShotDamage);
+                Debug.Log("DAMAGE: " + damage);
 
                 // prevent it from going negative.
                 if (defender.hp <= 0)
