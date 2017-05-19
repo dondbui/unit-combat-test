@@ -43,15 +43,16 @@ namespace core.units
         /// <summary>
         /// Create a new Unit and initialize default equipment and weapons
         /// </summary>
-        public Unit CreateNewUnit(string uid)
+        public Unit CreateNewUnit(string unitUID, string characterUID)
         {
-            UnitVO vo = metadataMap.GetVO<UnitVO>(uid);
+            UnitVO unitVO = metadataMap.GetVO<UnitVO>(unitUID);
+            CharacterVO charVO = metadataMap.GetVO<CharacterVO>(characterUID);
 
-            List<Equipment> defaultEquipment = GetEquipmentListFromUIDs(vo.equipmentUIDs);
+            List<Equipment> defaultEquipment = GetEquipmentListFromUIDs(unitVO.equipmentUIDs);
 
-            List<Equipment> defaultWeapons = GetEquipmentListFromUIDs(vo.weaponsUIDs);
+            List<Equipment> defaultWeapons = GetEquipmentListFromUIDs(unitVO.weaponsUIDs);
 
-            Unit unit = new Unit(vo, defaultEquipment, defaultWeapons);
+            Unit unit = new Unit(unitVO, charVO, defaultEquipment, defaultWeapons);
             return unit;
         }
 

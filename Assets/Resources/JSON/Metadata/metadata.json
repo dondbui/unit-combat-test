@@ -107,7 +107,14 @@
         {
             "uid": "sherman",
             "damageReduction": 1,
-            "dodgeChance": 0.1
+            "dodgeChance": 0.1,
+            "hitChance": 0.05
+        },
+        {
+            "uid": "defaultEnemy",
+            "damageReduction": 0,
+            "dodgeChance": 0,
+            "hitChance": 0
         }
     ],
     "Skills": [],

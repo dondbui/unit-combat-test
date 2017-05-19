@@ -18,6 +18,8 @@ namespace core.units
     {
         public UnitVO vo;
 
+        public CharacterVO pilot;
+
         /// <summary>
         /// The unit's current remaining HP
         /// </summary>
@@ -36,9 +38,11 @@ namespace core.units
         public List<Equipment> weapons;
         public List<Equipment> equipment;
 
-        public Unit (UnitVO vo, List<Equipment> equipment, List<Equipment> weapons)
+        public Unit (UnitVO vo, CharacterVO pilot, List<Equipment> equipment, List<Equipment> weapons)
         {
             this.vo = vo;
+
+            this.pilot = pilot;
 
             // Initialize the unit with max supplies
             hp = vo.hp;
@@ -74,7 +78,8 @@ namespace core.units
                 chanceToHit += eqpVO.hitChance;
             }
 
-            // TODO: also apply character bonuses
+            // Apply character bonuses
+            chanceToHit += pilot.hitChance;
 
             return chanceToHit;
         }
@@ -90,7 +95,8 @@ namespace core.units
                 chanceToDodge += eqpVO.dodgeChance;
             }
 
-            // TODO: also apply character bonuses
+            // Apply character bonuses
+            chanceToDodge += pilot.dodgeChance;
 
             return chanceToDodge;
         }
@@ -106,7 +112,7 @@ namespace core.units
                 reduction += eqpVO.damageReduction;
             }
 
-            // TODO: also apply character bonuses
+            reduction += pilot.damageReduction;
 
             return reduction;
         }

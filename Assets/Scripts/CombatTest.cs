@@ -17,9 +17,12 @@ public class CombatTest : MonoBehaviour
 {
     private const string METADATA_FILE = "metadata";
 
-    private const string SCOUT = "scout";
+    private const string UNIT_SCOUT = "scout";
 
-    private const string D_SCOUT = "deimos_scout";
+    private const string UNIT_DSCOUT = "deimos_scout";
+
+    private const string CHAR_SHERMAN = "sherman";
+    private const string CHAR_DEFAULT = "defaultEnemy";
 
     void Start ()
     {
@@ -33,8 +36,8 @@ public class CombatTest : MonoBehaviour
 
         uf.SetMetadata(map);
 
-        Unit scout = uf.CreateNewUnit(SCOUT);
-        Unit deimosScout = uf.CreateNewUnit(D_SCOUT);
+        Unit scout = uf.CreateNewUnit(UNIT_SCOUT, CHAR_SHERMAN);
+        Unit deimosScout = uf.CreateNewUnit(UNIT_DSCOUT, CHAR_DEFAULT);
 
         Debug.Log(scout.ToString());
         Debug.Log(deimosScout.ToString());
