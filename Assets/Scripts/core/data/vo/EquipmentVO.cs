@@ -11,7 +11,7 @@ namespace core.data.vo
         /// <summary>
         /// The amount of base damage this unit can do
         /// </summary>
-        public int basedamage;
+        public int baseDamage;
 
         /// <summary>
         /// The type of equipment this is for example, weapon, armor, etc
@@ -26,32 +26,32 @@ namespace core.data.vo
         /// <summary>
         /// The probability of each shot to hit
         /// </summary>
-        public double hitchance;
+        public double hitChance;
 
         /// <summary>
         /// The number of shots per attack for this weapon
         /// </summary>
-        public int numshotsperattack;
+        public int numShotsPerAttack;
 
         /// <summary>
         /// The amount of ammo capacity for this type of equipment.
         /// </summary>
-        public int ammocapacity;
+        public int ammoCapacity;
 
         /// <summary>
         /// The amount of additional damage this equipment adds
         /// </summary>
-        public int damagebonus;
+        public int damageBonus;
 
         /// <summary>
         /// How much additional health this unit can receive
         /// </summary>
-        public int healthbonus;
+        public int healthBonus;
 
         /// <summary>
         /// How much damage this piece of equipment helps with
         /// </summary>
-        public int damagereduction;
+        public int damageReduction;
 
         /// <summary>
         /// The range of the attack

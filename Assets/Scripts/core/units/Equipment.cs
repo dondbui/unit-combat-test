@@ -18,7 +18,7 @@ namespace core.units
         {
             this.vo = vo;
 
-            remainingAmmo = vo.ammocapacity;
+            remainingAmmo = vo.ammoCapacity;
         }
     }
 }

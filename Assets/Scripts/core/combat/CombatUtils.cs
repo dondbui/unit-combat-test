@@ -52,9 +52,9 @@ namespace core.combat
             }
 
             // calculate the damage
-            int baseShotDamage = equipmentVO.basedamage;
-            int numShots = equipmentVO.numshotsperattack;
-            double hitChance = equipmentVO.hitchance;
+            int baseShotDamage = equipmentVO.baseDamage;
+            int numShots = equipmentVO.numShotsPerAttack;
+            double hitChance = equipmentVO.hitChance;
 
             // do the num shots
             for (int i = 0; i < numShots; i++)

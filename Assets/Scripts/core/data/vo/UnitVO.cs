@@ -29,7 +29,7 @@ namespace core.data.vo
         /// <summary>
         /// The amount of base damage this unit can do
         /// </summary>
-        public int basedamage;
+        public int baseDamage;
 
         /// <summary>
         /// How much ammunition this unit can carry
@@ -49,17 +49,17 @@ namespace core.data.vo
         /// <summary>
         /// Space deliminated list of default equipment for this unit
         /// </summary>
-        public string equipmentlist;
+        public string equipmentList;
 
         public string[] equipmentUIDs;
 
         public override void Process()
         {
             // Only if we have something for the equipmentList do we need to add anything;
-            if (!string.IsNullOrEmpty(equipmentlist))
+            if (!string.IsNullOrEmpty(equipmentList))
             {
                 // Split it on the space
-                equipmentUIDs = equipmentlist.Split(' ');
+                equipmentUIDs = equipmentList.Split(' ');
             }
 
             base.Process();
