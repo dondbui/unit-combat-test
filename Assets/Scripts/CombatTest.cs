@@ -8,6 +8,7 @@
 using core.combat;
 using core.data;
 using core.units;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -36,16 +37,67 @@ public class CombatTest : MonoBehaviour
 
         uf.SetMetadata(map);
 
-        Unit scout = uf.CreateNewUnit(UNIT_SCOUT, CHAR_SHERMAN);
-        Unit deimosScout = uf.CreateNewUnit(UNIT_DSCOUT, CHAR_DEFAULT);
+        List<Unit> playerUnits = new List<Unit>();
+        List<Unit> enemyUnits = new List<Unit>();
+        List<Unit> neutralUnits = new List<Unit>();
 
-        Debug.Log(scout.ToString());
-        Debug.Log(deimosScout.ToString());
+        Unit scout = uf.CreateNewUnit(UNIT_SCOUT, CHAR_SHERMAN, CombatantFactionEnum.Player);
+        playerUnits.Add(scout);
 
-        CombatUtils.HandleAttack(ref scout, 0, ref deimosScout, 0);
+        for (int i = 0; i < 3; i++)
+        {
+            Unit deimosScout = uf.CreateNewUnit(UNIT_DSCOUT, CHAR_DEFAULT, CombatantFactionEnum.Enemy);
+            enemyUnits.Add(deimosScout);
+        }
 
-        Debug.Log(scout.ToString());
-        Debug.Log(deimosScout.ToString());
+        CombatEncounterController cec = CombatEncounterController.GetInstance();
+        cec.StartEncounter(playerUnits, enemyUnits, neutralUnits);
+
+        // While the encounter is still going on try to force the units to attack the first one
+        // in the enemy list
+        while (!cec.IsEncounterOver())
+        {
+            List<Unit> pendingUnits = cec.CurrentEncounter.UnitsPendingAction;
+            if (cec.CurrentFaction == CombatantFactionEnum.Player)
+            {
+
+                List<Unit> enemyEncounterUnits = cec.CurrentEncounter.EnemyUnits;
+
+                if (pendingUnits.Count > 0)
+                {
+                    // Get the next pending unit
+                    Unit playerUnit = pendingUnits[0];
+
+                    if (enemyEncounterUnits.Count > 0)
+                    {
+                        Unit enemyUnit = enemyEncounterUnits[0];
+
+                        cec.AttackUnit(playerUnit, 0, enemyUnit);
+                    }
+                }
+            }
+            else if (cec.CurrentFaction == CombatantFactionEnum.Enemy)
+            {
+                List<Unit> playerEncounterUnits = cec.CurrentEncounter.PlayerUnits;
+
+                if (pendingUnits.Count > 0)
+                {
+                    // Get the next pending unit
+                    Unit enemyUnit = pendingUnits[0];
+
+                    if (playerEncounterUnits.Count > 0)
+                    {
+                        Unit playerUnit = playerEncounterUnits[0];
+
+                        cec.AttackUnit(enemyUnit, 0, playerUnit);
+                    }
+                }
+            }
+            else
+            {
+                cec.GoToNextStep();
+            }
+        }
 
         Debug.Log("End");
     }

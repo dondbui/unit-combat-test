@@ -5,6 +5,7 @@
 /// <date>May 15th, 2017</date>
 /// ------------------------------------------------------------------------***/
 
+using core.combat;
 using core.data;
 using core.data.vo;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace core.units
         /// <summary>
         /// Create a new Unit and initialize default equipment and weapons
         /// </summary>
-        public Unit CreateNewUnit(string unitUID, string characterUID)
+        public Unit CreateNewUnit(string unitUID, string characterUID, CombatantFactionEnum faction)
         {
             UnitVO unitVO = metadataMap.GetVO<UnitVO>(unitUID);
             CharacterVO charVO = metadataMap.GetVO<CharacterVO>(characterUID);
@@ -52,7 +53,7 @@ namespace core.units
 
             List<Equipment> defaultWeapons = GetEquipmentListFromUIDs(unitVO.weaponsUIDs);
 
-            Unit unit = new Unit(unitVO, charVO, defaultEquipment, defaultWeapons);
+            Unit unit = new Unit(unitVO, charVO, faction, defaultEquipment, defaultWeapons);
             return unit;
         }
 

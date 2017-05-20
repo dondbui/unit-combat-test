@@ -21,6 +21,8 @@ namespace core.combat
         /// </summary>
         public static void HandleAttack(ref Unit attacker, int atkEqpSlot, ref Unit defender, int defEqpSlot)
         {
+            Debug.Log("-----Attack-----");
+
             ApplyDamage(ref attacker, atkEqpSlot, ref defender);
 
 
@@ -30,6 +32,7 @@ namespace core.combat
                 return;
             }
 
+            Debug.Log("-----Counter-Attack-----");
             ApplyDamage(ref defender, defEqpSlot, ref attacker);
         }
 

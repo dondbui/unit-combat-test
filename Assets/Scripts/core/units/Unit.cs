@@ -5,6 +5,7 @@
 /// <date>May 15th, 2017</date>
 /// ------------------------------------------------------------------------***/
 
+using core.combat;
 using core.data.vo;
 using System.Collections.Generic;
 using System.Text;
@@ -19,6 +20,11 @@ namespace core.units
         public UnitVO vo;
 
         public CharacterVO pilot;
+
+        /// <summary>
+        /// Indicates which side this unit belongs to.
+        /// </summary>
+        public CombatantFactionEnum faction;
 
         /// <summary>
         /// The unit's current remaining HP
@@ -38,11 +44,17 @@ namespace core.units
         public List<Equipment> weapons;
         public List<Equipment> equipment;
 
-        public Unit (UnitVO vo, CharacterVO pilot, List<Equipment> equipment, List<Equipment> weapons)
+        public Unit(
+            UnitVO vo, 
+            CharacterVO pilot, 
+            CombatantFactionEnum faction, 
+            List<Equipment> equipment, 
+            List<Equipment> weapons)
         {
             this.vo = vo;
 
             this.pilot = pilot;
+            this.faction = faction;
 
             // Initialize the unit with max supplies
             hp = vo.hp;
