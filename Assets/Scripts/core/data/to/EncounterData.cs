@@ -76,8 +76,12 @@ namespace core.data.to
             }
         }
 
+        /// <summary>
+        /// Removes the unit from the list of units pending an action
+        /// </summary>
         public void SpendAction(Unit unit)
         {
+            // This unit is no longer pending an action and thus remove it from the list
             if (UnitsPendingAction.Contains(unit))
             {
                 UnitsPendingAction.Remove(unit);
@@ -108,6 +112,10 @@ namespace core.data.to
             }
         }
 
+        /// <summary>
+        /// Destroy the data and null out everything to be very sure everything gets 
+        /// garbage collected
+        /// </summary>
         public void Destroy()
         {
             UnitsPendingAction.Clear();

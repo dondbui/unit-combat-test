@@ -63,35 +63,13 @@ public class CombatTest : MonoBehaviour
 
                 List<Unit> enemyEncounterUnits = cec.CurrentEncounter.EnemyUnits;
 
-                if (pendingUnits.Count > 0)
-                {
-                    // Get the next pending unit
-                    Unit playerUnit = pendingUnits[0];
-
-                    if (enemyEncounterUnits.Count > 0)
-                    {
-                        Unit enemyUnit = enemyEncounterUnits[0];
-
-                        cec.AttackUnit(playerUnit, 0, enemyUnit);
-                    }
-                }
+                TryAttacking(pendingUnits, enemyEncounterUnits);
             }
             else if (cec.CurrentFaction == CombatantFactionEnum.Enemy)
             {
                 List<Unit> playerEncounterUnits = cec.CurrentEncounter.PlayerUnits;
 
-                if (pendingUnits.Count > 0)
-                {
-                    // Get the next pending unit
-                    Unit enemyUnit = pendingUnits[0];
-
-                    if (playerEncounterUnits.Count > 0)
-                    {
-                        Unit playerUnit = playerEncounterUnits[0];
-
-                        cec.AttackUnit(enemyUnit, 0, playerUnit);
-                    }
-                }
+                TryAttacking(pendingUnits, playerEncounterUnits);
             }
             else
             {
@@ -100,6 +78,29 @@ public class CombatTest : MonoBehaviour
         }
 
         Debug.Log("End");
+    }
+
+    private void TryAttacking(List<Unit> pendingUnits, List<Unit> targetUnits)
+    {
+        // If we don't have any more units waiting then we can't do anything
+        if (pendingUnits.Count == 0)
+        {
+            return;
+        }
+        // Get the next pending unit
+        Unit attacker = pendingUnits[0];
+
+        // Out of targets then we don't care and should bounce out
+        if (targetUnits.Count == 0)
+        {
+            return;
+        }
+
+        Unit defender = targetUnits[0];
+        CombatEncounterController cec = CombatEncounterController.GetInstance();
+
+        // Attack it using the first weapon slot
+        cec.AttackUnit(attacker, 0, defender);
     }
     
     // Update is called once per frame
