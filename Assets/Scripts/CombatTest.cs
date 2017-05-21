@@ -44,7 +44,7 @@ public class CombatTest : MonoBehaviour
         Unit scout = uf.CreateNewUnit(UNIT_SCOUT, CHAR_SHERMAN, CombatantFactionEnum.Player);
         playerUnits.Add(scout);
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 8; i++)
         {
             Unit deimosScout = uf.CreateNewUnit(UNIT_DSCOUT, CHAR_DEFAULT, CombatantFactionEnum.Enemy);
             enemyUnits.Add(deimosScout);

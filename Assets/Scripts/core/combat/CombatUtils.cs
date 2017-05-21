@@ -5,6 +5,7 @@
 /// <date>May 15th, 2017</date>
 /// ------------------------------------------------------------------------***/
 
+using core.data.to;
 using core.data.vo;
 using core.units;
 using UnityEngine;
@@ -16,14 +17,18 @@ namespace core.combat
     /// </summary>
     public class CombatUtils
     {
+        private const string INDENT = "    ";
+
         /// <summary>
         /// Handle the attack between 2 combatants
         /// </summary>
         public static void HandleAttack(ref Unit attacker, int atkEqpSlot, ref Unit defender, int defEqpSlot)
         {
-            Debug.Log("-----Attack-----");
+            EncounterData eData = CombatEncounterController.GetInstance().CurrentEncounter;
 
-            ApplyDamage(ref attacker, atkEqpSlot, ref defender);
+            eData.AddLog("ATTACK");
+
+            ApplyDamage(ref attacker, atkEqpSlot, ref defender, eData);
 
 
             // Unit is dead so no counter attack.
@@ -32,26 +37,21 @@ namespace core.combat
                 return;
             }
 
-            Debug.Log("-----Counter-Attack-----");
-            ApplyDamage(ref defender, defEqpSlot, ref attacker);
+            eData.AddLog("COUNTER-ATTACK");
+            ApplyDamage(ref defender, defEqpSlot, ref attacker, eData);
         }
 
         /// <summary>
         /// Applies damage to the defender
         /// </summary>
-        private static void ApplyDamage(ref Unit attacker, int atkEqpSlot, ref Unit defender)
+        private static void ApplyDamage(ref Unit attacker, int atkEqpSlot, ref Unit defender, EncounterData eData)
         {
             Equipment attackerEquipment = attacker.weapons[atkEqpSlot];
             EquipmentVO equipmentVO = attackerEquipment.vo;
 
-            Debug.Log(attacker.vo.uid + " uses " +
-                equipmentVO.uid + " on " + defender.vo.uid);
-
-            if (attackerEquipment.remainingAmmo == 0)
-            {
-                Debug.Log(attacker.vo.uid + " NO AMMO!!");
-                return;
-            }
+            eData.AddLog(INDENT + attacker.vo.uid + "(" + attacker.hp + "/" + 
+                attacker.vo.hp + ")" + " uses " + equipmentVO.uid + " on " + 
+                defender.vo.uid + " (" + defender.hp + "/" + defender.vo.hp + ")");
 
             // calculate the damage
             int damage = attacker.GetDamage(atkEqpSlot) - defender.GetDamageReduction();
@@ -73,27 +73,31 @@ namespace core.combat
                 attackerEquipment.remainingAmmo -= ammoUsed;
                 if (attackerEquipment.remainingAmmo <= 0)
                 {
-                    Debug.Log(equipmentVO.uid + " Out of AMMO!!");
+                    eData.AddLog(INDENT + equipmentVO.uid + " OUT OF AMMO!!");
                     break;
                 }
 
                 if (!DoesShotHit(hitChance, 0))
                 {
-                    Debug.Log("MISS!!!");
+                    eData.AddLog(INDENT + "MISS: AMMO REMAINING: " + 
+                        attacker.vo.uid + " " + attackerEquipment.remainingAmmo);
                     continue;
                 }
 
                 // apply the damage
                 defender.hp -= damage;
 
-                Debug.Log("DAMAGE: " + damage);
+                eData.AddLog(INDENT + "DAMAGE: " + defender.vo.uid + 
+                    " -" + damage + " (" + defender.hp + "/" + defender.vo.hp + " HP)" + 
+                    " AMMO REMAINING: " + attacker.vo.uid + "(" + attackerEquipment.remainingAmmo +
+                    "/" + attackerEquipment.vo.ammoCapacity + ")");
 
                 // prevent it from going negative.
                 if (defender.hp <= 0)
                 {
                     defender.hp = 0;
 
-                    Debug.Log(defender.vo.uid + " DESTROYED!!");
+                    eData.AddLog(INDENT + defender.vo.uid + " DESTROYED!!");
                     break;
                 }
             }

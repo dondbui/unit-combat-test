@@ -8,7 +8,6 @@
 using core.data.to;
 using core.units;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace core.combat
 {
@@ -51,8 +50,6 @@ namespace core.combat
 
         public void StartEncounter(List<Unit> playerUnits, List<Unit> enemyUnits, List<Unit> neutralUnits)
         {
-            Debug.Log("Start Encounter");
-
             // Initialize a new encounter
             CurrentEncounter = new EncounterData();
             CurrentEncounter.PlayerUnits = playerUnits;
@@ -89,11 +86,10 @@ namespace core.combat
                     CurrentFaction = CombatantFactionEnum.Player;
                     CurrentTurn++;
 
-                    Debug.LogWarning("Current Turn: " + CurrentTurn);
+                    CurrentEncounter.AddLog("TURN: " + CurrentTurn);
                     break;
             }
 
-            Debug.LogWarning("Current Faction Move: " + CurrentFaction.ToString());
             CurrentEncounter.BeginFactionTurn(CurrentFaction);
         }
 
@@ -102,7 +98,6 @@ namespace core.combat
         /// </summary>
         public void EndEncounter()
         {
-            Debug.Log("Encounter Over");
             CurrentEncounter.Destroy();
             CurrentEncounter = null;
         }

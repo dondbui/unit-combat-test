@@ -8,6 +8,8 @@
 using core.combat;
 using core.units;
 using System.Collections.Generic;
+using System.Text;
+using UnityEngine;
 
 namespace core.data.to
 {
@@ -43,9 +45,12 @@ namespace core.data.to
         /// </summary>
         public List<Unit> UnitsPendingAction;
 
+        public StringBuilder CombatLog;
+
         public EncounterData ()
         {
             UnitsPendingAction = new List<Unit>();
+            CombatLog = new StringBuilder("COMBAT LOG: \n" );
         }
 
         /// <summary>
@@ -74,6 +79,8 @@ namespace core.data.to
                     UnitsPendingAction.AddRange(EnemyUnits);
                     break;
             }
+
+            AddLog(faction.ToString() + " Time to ACT!");
         }
 
         /// <summary>
@@ -112,12 +119,22 @@ namespace core.data.to
             }
         }
 
+        public void AddLog(string log)
+        {
+            CombatLog.Append(log);
+            CombatLog.Append("\n");
+        }
+
         /// <summary>
         /// Destroy the data and null out everything to be very sure everything gets 
         /// garbage collected
         /// </summary>
         public void Destroy()
         {
+            AddLog("END OF ENCOUNTER");
+
+            Debug.Log(CombatLog.ToString());
+
             UnitsPendingAction.Clear();
             PlayerUnits.Clear();
             EnemyUnits.Clear();
@@ -127,6 +144,7 @@ namespace core.data.to
             PlayerUnits = null;
             EnemyUnits = null;
             NeutralUnits = null;
+            CombatLog = null;
         }
     }
 }
